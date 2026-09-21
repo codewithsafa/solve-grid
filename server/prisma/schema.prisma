@@ -1,0 +1,44 @@
+// Prisma schema for SolveMe - Citizen Problem-Discovery & Reporting Platform
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Problem {
+  id           String        @id @default(cuid())
+  title        String
+  description  String
+  category     String
+  hashtags     String        // Comma-separated or JSON list of hashtags e.g. "#drainage,#roads"
+  state        String
+  district     String
+  imageUrl     String?
+  videoUrl     String?
+  status       String        @default("SUBMITTED") // SUBMITTED, CATEGORISED, UNDER_VALIDATION, VALIDATED, IN_PROGRESS, RESOLVED
+  upvotes      Int           @default(0)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  discussions  Discussion[]
+  problemInfos ProblemInfo[]
+}
+
+model Discussion {
+  id        String   @id @default(cuid())
+  problemId String
+  content   String
+  createdAt DateTime @default(now())
+  problem   Problem  @relation(fields: [problemId], references: [id], onDelete: Cascade)
+}
+
+model ProblemInfo {
+  id        String   @id @default(cuid())
+  problemId String
+  content   String
+  createdAt DateTime @default(now())
+  problem   Problem  @relation(fields: [problemId], references: [id], onDelete: Cascade)
+}

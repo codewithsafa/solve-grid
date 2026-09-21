@@ -1,0 +1,16 @@
+{
+  "name": "solveme-platform",
+  "version": "1.0.0",
+  "description": "SolveMe - Citizen Problem-Discovery and Reporting Platform (SIH Submission MVP)",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run dev",
+    "build:client": "cd client && npm run build",
+    "seed": "cd server && npm run seed",
+    "prisma:push": "cd server && npm run prisma:push"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
