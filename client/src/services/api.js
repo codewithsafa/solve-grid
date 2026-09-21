@@ -1,7 +1,8 @@
 // SolveMe API Client Service
 // Handles all HTTP requests to the backend Express / Prisma API
 
-const API_BASE = '/api';
+// const API_BASE = '/api';
+const API_BASE = `${import.meta.env.VITE_API_URL || ''}/api`;
 
 /**
  * Fetch all problems with optional filters
